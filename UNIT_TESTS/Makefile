@@ -1,6 +1,7 @@
 tests: list_tests run_tests
 tests_clean:
 	rm -f testlist
+clean: tests_clean
 
 list_tests:
 	./list-tests > testlist
