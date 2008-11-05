@@ -10,7 +10,7 @@ package body stack is
   end push;
 
   procedure peek
-    (stack   : in out stack_t;
+    (stack   : stack_t;
      process : not null access procedure (element : element_type))
   is
     length : constant count_t := stack_vectors.length (stack.vector);
@@ -25,7 +25,7 @@ package body stack is
   end peek;
 
   procedure peek
-    (stack   : in out stack_t;
+    (stack   : stack_t;
      element : out element_type)
   is
     procedure peek_process (stack_element : element_type) is

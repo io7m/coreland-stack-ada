@@ -19,11 +19,11 @@ package stack is
     (stack   : in out stack_t);
 
   procedure peek
-    (stack   : in out stack_t;
+    (stack   : stack_t;
      process : not null access procedure (element : element_type));
 
   procedure peek
-    (stack   : in out stack_t;
+    (stack   : stack_t;
      element : out element_type);
 
   procedure clear
