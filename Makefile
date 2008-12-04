@@ -7,10 +7,9 @@ UNIT_TESTS/t_init1 UNIT_TESTS/t_init1.ali UNIT_TESTS/t_init1.o \
 UNIT_TESTS/t_ops1 UNIT_TESTS/t_ops1.ali UNIT_TESTS/t_ops1.o UNIT_TESTS/test.a \
 UNIT_TESTS/test.ali UNIT_TESTS/test.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o \
 ctxt/incdir.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o deinstaller \
-deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o \
-inst-link inst-link.o install_core.o install_error.o installer installer.o \
-instchk instchk.o insthier.o stack-ada-conf stack-ada-conf.o stack-ada.a \
-stack.ali stack.o
+deinstaller.o install-core.o install-error.o install-posix.o install-win32.o \
+install.a installer installer.o instchk instchk.o insthier.o stack-ada-conf \
+stack-ada-conf.o stack-ada.a stack.ali stack.o
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -196,70 +195,46 @@ cc-compile ctxt/version.c
 	./cc-compile ctxt/version.c
 
 deinstaller:\
-cc-link deinstaller.ld deinstaller.o insthier.o install_core.o install_error.o \
-ctxt/ctxt.a
-	./cc-link deinstaller deinstaller.o insthier.o install_core.o install_error.o \
-	ctxt/ctxt.a
+cc-link deinstaller.ld deinstaller.o insthier.o install.a ctxt/ctxt.a
+	./cc-link deinstaller deinstaller.o insthier.o install.a ctxt/ctxt.a
 
 deinstaller.o:\
 cc-compile deinstaller.c install.h
 	./cc-compile deinstaller.c
 
-inst-check:\
-cc-link inst-check.ld inst-check.o install_error.o
-	./cc-link inst-check inst-check.o install_error.o
+install-core.o:\
+cc-compile install-core.c install.h
+	./cc-compile install-core.c
 
-inst-check.o:\
-cc-compile inst-check.c install.h
-	./cc-compile inst-check.c
+install-error.o:\
+cc-compile install-error.c install.h
+	./cc-compile install-error.c
 
-inst-copy:\
-cc-link inst-copy.ld inst-copy.o install_error.o
-	./cc-link inst-copy inst-copy.o install_error.o
+install-posix.o:\
+cc-compile install-posix.c install.h
+	./cc-compile install-posix.c
 
-inst-copy.o:\
-cc-compile inst-copy.c install.h
-	./cc-compile inst-copy.c
+install-win32.o:\
+cc-compile install-win32.c install.h
+	./cc-compile install-win32.c
 
-inst-dir:\
-cc-link inst-dir.ld inst-dir.o install_error.o
-	./cc-link inst-dir inst-dir.o install_error.o
-
-inst-dir.o:\
-cc-compile inst-dir.c install.h
-	./cc-compile inst-dir.c
-
-inst-link:\
-cc-link inst-link.ld inst-link.o install_error.o
-	./cc-link inst-link inst-link.o install_error.o
-
-inst-link.o:\
-cc-compile inst-link.c install.h
-	./cc-compile inst-link.c
-
-install_core.o:\
-cc-compile install_core.c install.h
-	./cc-compile install_core.c
-
-install_error.o:\
-cc-compile install_error.c install.h
-	./cc-compile install_error.c
+install.a:\
+cc-slib install.sld install-core.o install-posix.o install-win32.o \
+install-error.o
+	./cc-slib install install-core.o install-posix.o install-win32.o \
+	install-error.o
 
 installer:\
-cc-link installer.ld installer.o insthier.o install_core.o install_error.o \
-ctxt/ctxt.a
-	./cc-link installer installer.o insthier.o install_core.o install_error.o \
-	ctxt/ctxt.a
+cc-link installer.ld installer.o insthier.o install.a ctxt/ctxt.a
+	./cc-link installer installer.o insthier.o install.a ctxt/ctxt.a
 
 installer.o:\
 cc-compile installer.c install.h
 	./cc-compile installer.c
 
 instchk:\
-cc-link instchk.ld instchk.o insthier.o install_core.o install_error.o \
-ctxt/ctxt.a
-	./cc-link instchk instchk.o insthier.o install_core.o install_error.o \
-	ctxt/ctxt.a
+cc-link instchk.ld instchk.o insthier.o install.a ctxt/ctxt.a
+	./cc-link instchk instchk.o insthier.o install.a ctxt/ctxt.a
 
 instchk.o:\
 cc-compile instchk.c install.h
@@ -283,13 +258,13 @@ mk-ldtype:\
 conf-ld conf-systype conf-cctype
 
 mk-mk-ctxt:\
-conf-cc
+conf-cc conf-ld
 
 mk-sosuffix:\
 conf-systype
 
 mk-systype:\
-conf-cc
+conf-cc conf-ld
 
 stack-ada-conf:\
 cc-link stack-ada-conf.ld stack-ada-conf.o ctxt/ctxt.a
@@ -318,10 +293,9 @@ obj_clean:
 	UNIT_TESTS/test.ali UNIT_TESTS/test.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
 	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/incdir.c ctxt/incdir.o ctxt/repos.c \
 	ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
-	deinstaller deinstaller.o inst-check inst-check.o inst-copy inst-copy.o \
-	inst-dir inst-dir.o inst-link inst-link.o install_core.o install_error.o \
-	installer installer.o instchk instchk.o insthier.o stack-ada-conf \
-	stack-ada-conf.o stack-ada.a stack.ali stack.o
+	deinstaller deinstaller.o install-core.o install-error.o install-posix.o \
+	install-win32.o install.a installer installer.o instchk instchk.o insthier.o \
+	stack-ada-conf stack-ada-conf.o stack-ada.a stack.ali stack.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
