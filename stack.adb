@@ -1,69 +1,69 @@
-package body stack is
+package body Stack is
 
-  use type count_t;
+  use type Count_t;
 
-  procedure push
-    (stack   : in out stack_t;
-     element : element_type) is
+  procedure Push
+    (Stack   : in out Stack_t;
+     Element : in     Element_Type) is
   begin
-    stack_vectors.append (stack.vector, element);
-  end push;
+    Stack_Vectors.Append (Stack.Vector, Element);
+  end Push;
 
-  procedure peek
-    (stack   : stack_t;
-     process : not null access procedure (element : element_type))
+  procedure Peek
+    (Stack   : in Stack_t;
+     Process : not null access procedure (Element : Element_Type))
   is
-    length : constant count_t := stack_vectors.length (stack.vector);
+    Length : constant Count_t := Stack_Vectors.Length (Stack.Vector);
   begin
-    stack_vectors.query_element
-      (container => stack.vector,
-       index     => natural (length - 1),
-       process   => process);
+    Stack_Vectors.Query_Element
+      (Container => Stack.Vector,
+       Index     => Natural (Length - 1),
+       Process   => Process);
   exception
-    when constraint_error =>
-      raise constraint_error with "stack underflow";
-  end peek;
+    when Constraint_Error =>
+      raise Constraint_Error with "Stack underflow";
+  end Peek;
 
-  procedure peek
-    (stack   : stack_t;
-     element : out element_type)
+  procedure Peek
+    (Stack   : in     Stack_t;
+     Element :    out Element_Type)
   is
-    procedure peek_process (stack_element : element_type) is
+    procedure Peek_Process (Stack_Element : Element_Type) is
     begin
-      element := stack_element;
-    end peek_process;
+      Element := Stack_Element;
+    end Peek_Process;
   begin
-    peek (stack, peek_process'access);
-  end peek;
+    Peek (Stack, Peek_Process'Access);
+  end Peek;
 
-  procedure pop
-    (stack   : in out stack_t;
-     element : out element_type) is
+  procedure Pop
+    (Stack   : in out Stack_t;
+     Element :    out Element_Type) is
   begin
-    peek (stack, element);
-    stack_vectors.delete_last (stack.vector);
-  end pop;
+    Peek (Stack, Element);
+    Stack_Vectors.Delete_Last (Stack.Vector);
+  end Pop;
 
-  procedure pop_discard
-    (stack : in out stack_t)
+  procedure Pop_Discard
+    (Stack : in out Stack_t)
   is
-    dummy : element_type;
+    Dummy : Element_Type;
   begin
-    pop (stack, dummy);
-  end pop_discard;
+    Pop (Stack, Dummy);
+  end Pop_Discard;
 
-  procedure clear
-    (stack : in out stack_t) is
+  procedure Clear
+    (Stack : in out Stack_t) is
   begin
-    stack_vectors.delete_first
-      (container => stack.vector,
-       count     => stack_vectors.length (stack.vector));
-  end clear;
+    Stack_Vectors.Delete_First
+      (Container => Stack.Vector,
+       Count     => Stack_Vectors.Length (Stack.Vector));
+  end Clear;
 
-  function size
-    (stack : stack_t) return natural is
+  function Size
+    (Stack : Stack_t) return Natural is
   begin
-    return natural (stack_vectors.length (stack.vector));
-  end size;
+    return Natural (Stack_Vectors.Length (Stack.Vector));
+  end Size;
 
-end stack;
+end Stack;

@@ -1,46 +1,46 @@
-with ada.containers.vectors;
+with Ada.Containers.Vectors;
 
 generic
-  type element_type is private;
+  type Element_Type is private;
 
-package stack is
+package Stack is
 
-  type stack_t is private;
+  type Stack_t is private;
 
-  procedure push
-    (stack   : in out stack_t;
-     element : element_type);
+  procedure Push
+    (Stack   : in out Stack_t;
+     Element : in     Element_Type);
 
-  procedure pop
-    (stack   : in out stack_t;
-     element : out element_type);
+  procedure Pop
+    (Stack   : in out Stack_t;
+     Element :    out Element_Type);
 
-  procedure pop_discard
-    (stack   : in out stack_t);
+  procedure Pop_Discard
+    (Stack   : in out Stack_t);
 
-  procedure peek
-    (stack   : stack_t;
-     process : not null access procedure (element : element_type));
+  procedure Peek
+    (Stack   : in     Stack_t;
+     Process : not null access procedure (Element : Element_Type));
 
-  procedure peek
-    (stack   : stack_t;
-     element : out element_type);
+  procedure Peek
+    (Stack   : in     Stack_t;
+     Element :    out Element_Type);
 
-  procedure clear
-    (stack : in out stack_t);
+  procedure Clear
+    (Stack : in out Stack_t);
 
-  function size
-    (stack : stack_t) return natural;
+  function Size
+    (Stack : in Stack_t) return Natural;
 
 private
 
-  package stack_vectors is new ada.containers.vectors
-    (index_type => natural, element_type => element_type);
+  package Stack_Vectors is new Ada.Containers.Vectors
+    (Index_Type => Natural, Element_Type => Element_Type);
 
-  subtype count_t is ada.containers.count_type;
+  subtype Count_t is Ada.Containers.Count_Type;
 
-  type stack_t is record
-    vector : stack_vectors.vector;
+  type Stack_t is record
+    Vector : Stack_Vectors.Vector;
   end record;
 
-end stack;
+end Stack;

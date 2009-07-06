@@ -1,81 +1,81 @@
-with test;
-with stack;
+with Test;
+with Stack;
 
 procedure t_ops1 is
-  package int_stack is new stack (element_type => natural);
+  package Int_Stack is new Stack (element_type => natural);
 
-  stack  : int_stack.stack_t;
+  Stack  : Int_Stack.Stack_t;
 
   procedure push
     (expected_value : natural;
-     expected_size  : natural)
+     expected_Size  : natural)
   is
     got_value : natural;
-    got_size  : natural;
+    got_Size  : natural;
   begin
-    int_stack.push (stack, expected_value);
-    int_stack.peek (stack, got_value);
-    got_size := int_stack.size (stack);
+    Int_Stack.push (Stack, expected_value);
+    Int_Stack.Peek (Stack, got_value);
+    got_Size := Int_Stack.Size (Stack);
 
-    test.assert
-      (check        => got_value = expected_value,
-       pass_message => "push value " & natural'image (got_value) & " = " & natural'image (expected_value),
-       fail_message => "push value " & natural'image (got_value) & " /= " & natural'image (expected_value));
-    test.assert
-      (check        => got_size = expected_size,
-       pass_message => "push size " & natural'image (got_size) & " = " & natural'image (expected_size),
-       fail_message => "push size " & natural'image (got_size) & " /= " & natural'image (expected_size));
+    Test.Assert
+      (Check        => got_value = expected_value,
+       Pass_Message => "push value " & natural'image (got_value) & " = " & natural'image (expected_value),
+       Fail_Message => "push value " & natural'image (got_value) & " /= " & natural'image (expected_value));
+    Test.Assert
+      (Check        => got_Size = expected_Size,
+       Pass_Message => "push Size " & natural'image (got_Size) & " = " & natural'image (expected_Size),
+       Fail_Message => "push Size " & natural'image (got_Size) & " /= " & natural'image (expected_Size));
   end push;
 
-  procedure pop
+  procedure Pop
     (expected_value : natural;
-     expected_size  : natural)
+     expected_Size  : natural)
   is
     got_value : natural;
-    got_size  : natural;
+    got_Size  : natural;
   begin
-    int_stack.pop (stack, got_value);
-    got_size := int_stack.size (stack);
+    Int_Stack.Pop (Stack, got_value);
+    got_Size := Int_Stack.Size (Stack);
 
-    test.assert
-      (check        => got_value = expected_value,
-       pass_message => "pop value " & natural'image (got_value) & " = " & natural'image (expected_value),
-       fail_message => "pop value " & natural'image (got_value) & " /= " & natural'image (expected_value));
-    test.assert
-      (check        => got_size = expected_size,
-       pass_message => "pop size " & natural'image (got_size) & " = " & natural'image (expected_size),
-       fail_message => "pop size " & natural'image (got_size) & " /= " & natural'image (expected_size));
-  end pop;
+    Test.Assert
+      (Check        => got_value = expected_value,
+       Pass_Message => "Pop value " & natural'image (got_value) & " = " & natural'image (expected_value),
+       Fail_Message => "Pop value " & natural'image (got_value) & " /= " & natural'image (expected_value));
+    Test.Assert
+      (Check        => got_Size = expected_Size,
+       Pass_Message => "Pop Size " & natural'image (got_Size) & " = " & natural'image (expected_Size),
+       Fail_Message => "Pop Size " & natural'image (got_Size) & " /= " & natural'image (expected_Size));
+  end Pop;
 
 begin
-  test.assert
-    (check        => int_stack.size (stack) = 0,
-     pass_message => "stack is empty",
-     fail_message => "stack not empty at initialization");
+  Test.Assert
+    (Check        => Int_Stack.Size (Stack) = 0,
+     Pass_Message => "Stack is empty",
+     Fail_Message => "Stack not empty at initialization");
 
-  push (expected_value => 100, expected_size => 1);
-  push (expected_value => 200, expected_size => 2);
-  push (expected_value => 300, expected_size => 3);
-  push (expected_value => 400, expected_size => 4);
-  push (expected_value => 500, expected_size => 5);
+  push (expected_value => 100, expected_Size => 1);
+  push (expected_value => 200, expected_Size => 2);
+  push (expected_value => 300, expected_Size => 3);
+  push (expected_value => 400, expected_Size => 4);
+  push (expected_value => 500, expected_Size => 5);
 
-  pop (expected_value => 500, expected_size => 4);
-  pop (expected_value => 400, expected_size => 3);
-  pop (expected_value => 300, expected_size => 2);
-  pop (expected_value => 200, expected_size => 1);
-  pop (expected_value => 100, expected_size => 0);
+  Pop (expected_value => 500, expected_Size => 4);
+  Pop (expected_value => 400, expected_Size => 3);
+  Pop (expected_value => 300, expected_Size => 2);
+  Pop (expected_value => 200, expected_Size => 1);
+  Pop (expected_value => 100, expected_Size => 0);
 
-  push (expected_value => 100, expected_size => 1);
-  push (expected_value => 200, expected_size => 2);
-  push (expected_value => 300, expected_size => 3);
-  push (expected_value => 400, expected_size => 4);
-  push (expected_value => 500, expected_size => 5);
+  push (expected_value => 100, expected_Size => 1);
+  push (expected_value => 200, expected_Size => 2);
+  push (expected_value => 300, expected_Size => 3);
+  push (expected_value => 400, expected_Size => 4);
+  push (expected_value => 500, expected_Size => 5);
 
-  int_stack.clear (stack);
+  Int_Stack.clear (Stack);
 
-  test.assert
-    (check        => int_stack.size (stack) = 0,
-     pass_message => "stack is empty",
-     fail_message => "stack not empty at initialization");
+  Test.Assert
+    (Check        => Int_Stack.Size (Stack) = 0,
+     Pass_Message => "Stack is empty",
+     Fail_Message => "Stack not empty at initialization");
 
 end t_ops1;

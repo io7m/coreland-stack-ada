@@ -1,60 +1,60 @@
-with test;
-with stack;
+with Test;
+with Stack;
 
 procedure t_init1 is
-  package int_stack is new stack (element_type => natural);
+  package Int_Stack is new Stack (Element_Type => Natural);
 
-  stack  : int_stack.stack_t;
-  caught : boolean;
+  Stack  : Int_Stack.Stack_t;
+  Caught : Boolean;
 begin
-  test.assert
-    (check        => int_stack.size (stack) = 0,
-     pass_message => "stack is empty",
-     fail_message => "stack not empty at initialization");
+  Test.Assert
+    (Check        => Int_Stack.Size (Stack) = 0,
+     Pass_Message => "Stack is empty",
+     Fail_Message => "Stack not empty at initialization");
 
-  -- catch pop exception
+  -- catch Pop exception
   declare
-    x : natural;
+    X : Natural;
   begin
-    int_stack.pop (stack, x);
-    test.assert
-      (check        => x'valid,
-       pass_message => "valid x",
-       fail_message => "invalid x");
+    Int_Stack.Pop (Stack, X);
+    Test.Assert
+      (Check        => X'Valid,
+       Pass_Message => "Valid X",
+       Fail_Message => "Invalid X");
   exception
-    when constraint_error => caught := true;
+    when Constraint_Error => Caught := True;
   end;
-  test.assert
-    (check        => caught,
-     pass_message => "caught underflow",
-     fail_message => "failed to catch underflow");
+  Test.Assert
+    (Check        => Caught,
+     Pass_Message => "Caught underflow",
+     Fail_Message => "Failed to catch underflow");
 
-  -- catch pop exception
+  -- catch Pop exception
   begin
-    int_stack.pop_discard (stack);
+    Int_Stack.Pop_Discard (Stack);
   exception
-    when constraint_error => caught := true;
+    when Constraint_Error => Caught := True;
   end;
-  test.assert
-    (check        => caught,
-     pass_message => "caught underflow",
-     fail_message => "failed to catch underflow");
+  Test.Assert
+    (Check        => Caught,
+     Pass_Message => "Caught underflow",
+     Fail_Message => "Failed to catch underflow");
 
-  -- catch peek exception
+  -- catch Peek exception
   declare
-    x : natural;
+    X : Natural;
   begin
-    int_stack.peek (stack, x);
-    test.assert
-      (check        => x'valid,
-       pass_message => "valid x",
-       fail_message => "invalid x");
+    Int_Stack.Peek (Stack, X);
+    Test.Assert
+      (Check        => X'Valid,
+       Pass_Message => "Valid X",
+       Fail_Message => "Invalid X");
   exception
-    when constraint_error => caught := true;
+    when Constraint_Error => Caught := True;
   end;
-  test.assert
-    (check        => caught,
-     pass_message => "caught underflow",
-     fail_message => "failed to catch underflow");
+  Test.Assert
+    (Check        => Caught,
+     Pass_Message => "Caught underflow",
+     Fail_Message => "Failed to catch underflow");
 
 end t_init1;
