@@ -2,49 +2,49 @@ with Test;
 with Stack;
 
 procedure t_ops1 is
-  package Int_Stack is new Stack (element_type => natural);
+  package Int_Stack is new Stack (element_type => Natural);
 
   Stack  : Int_Stack.Stack_t;
 
-  procedure push
-    (expected_value : natural;
-     expected_Size  : natural)
+  procedure Push
+    (Expected_Value : Natural;
+     Expected_Size  : Natural)
   is
-    got_value : natural;
-    got_Size  : natural;
+    Got_value : Natural;
+    Got_Size  : Natural;
   begin
-    Int_Stack.push (Stack, expected_value);
-    Int_Stack.Peek (Stack, got_value);
-    got_Size := Int_Stack.Size (Stack);
+    Int_Stack.Push (Stack, Expected_Value);
+    Int_Stack.Peek (Stack, Got_value);
+    Got_Size := Int_Stack.Size (Stack);
 
     Test.Assert
-      (Check        => got_value = expected_value,
-       Pass_Message => "push value " & natural'image (got_value) & " = " & natural'image (expected_value),
-       Fail_Message => "push value " & natural'image (got_value) & " /= " & natural'image (expected_value));
+      (Check        => Got_value = Expected_Value,
+       Pass_Message => "Push value " & Natural'Image (Got_value) & " = " & Natural'Image (Expected_Value),
+       Fail_Message => "Push value " & Natural'Image (Got_value) & " /= " & Natural'Image (Expected_Value));
     Test.Assert
-      (Check        => got_Size = expected_Size,
-       Pass_Message => "push Size " & natural'image (got_Size) & " = " & natural'image (expected_Size),
-       Fail_Message => "push Size " & natural'image (got_Size) & " /= " & natural'image (expected_Size));
-  end push;
+      (Check        => Got_Size = Expected_Size,
+       Pass_Message => "Push Size " & Natural'Image (Got_Size) & " = " & Natural'Image (Expected_Size),
+       Fail_Message => "Push Size " & Natural'Image (Got_Size) & " /= " & Natural'Image (Expected_Size));
+  end Push;
 
   procedure Pop
-    (expected_value : natural;
-     expected_Size  : natural)
+    (Expected_Value : Natural;
+     Expected_Size  : Natural)
   is
-    got_value : natural;
-    got_Size  : natural;
+    Got_value : Natural;
+    Got_Size  : Natural;
   begin
-    Int_Stack.Pop (Stack, got_value);
-    got_Size := Int_Stack.Size (Stack);
+    Int_Stack.Pop (Stack, Got_value);
+    Got_Size := Int_Stack.Size (Stack);
 
     Test.Assert
-      (Check        => got_value = expected_value,
-       Pass_Message => "Pop value " & natural'image (got_value) & " = " & natural'image (expected_value),
-       Fail_Message => "Pop value " & natural'image (got_value) & " /= " & natural'image (expected_value));
+      (Check        => Got_value = Expected_Value,
+       Pass_Message => "Pop value " & Natural'Image (Got_value) & " = " & Natural'Image (Expected_Value),
+       Fail_Message => "Pop value " & Natural'Image (Got_value) & " /= " & Natural'Image (Expected_Value));
     Test.Assert
-      (Check        => got_Size = expected_Size,
-       Pass_Message => "Pop Size " & natural'image (got_Size) & " = " & natural'image (expected_Size),
-       Fail_Message => "Pop Size " & natural'image (got_Size) & " /= " & natural'image (expected_Size));
+      (Check        => Got_Size = Expected_Size,
+       Pass_Message => "Pop Size " & Natural'Image (Got_Size) & " = " & Natural'Image (Expected_Size),
+       Fail_Message => "Pop Size " & Natural'Image (Got_Size) & " /= " & Natural'Image (Expected_Size));
   end Pop;
 
 begin
@@ -53,25 +53,25 @@ begin
      Pass_Message => "Stack is empty",
      Fail_Message => "Stack not empty at initialization");
 
-  push (expected_value => 100, expected_Size => 1);
-  push (expected_value => 200, expected_Size => 2);
-  push (expected_value => 300, expected_Size => 3);
-  push (expected_value => 400, expected_Size => 4);
-  push (expected_value => 500, expected_Size => 5);
+  Push (Expected_Value => 100, Expected_Size => 1);
+  Push (Expected_Value => 200, Expected_Size => 2);
+  Push (Expected_Value => 300, Expected_Size => 3);
+  Push (Expected_Value => 400, Expected_Size => 4);
+  Push (Expected_Value => 500, Expected_Size => 5);
 
-  Pop (expected_value => 500, expected_Size => 4);
-  Pop (expected_value => 400, expected_Size => 3);
-  Pop (expected_value => 300, expected_Size => 2);
-  Pop (expected_value => 200, expected_Size => 1);
-  Pop (expected_value => 100, expected_Size => 0);
+  Pop (Expected_Value => 500, Expected_Size => 4);
+  Pop (Expected_Value => 400, Expected_Size => 3);
+  Pop (Expected_Value => 300, Expected_Size => 2);
+  Pop (Expected_Value => 200, Expected_Size => 1);
+  Pop (Expected_Value => 100, Expected_Size => 0);
 
-  push (expected_value => 100, expected_Size => 1);
-  push (expected_value => 200, expected_Size => 2);
-  push (expected_value => 300, expected_Size => 3);
-  push (expected_value => 400, expected_Size => 4);
-  push (expected_value => 500, expected_Size => 5);
+  Push (Expected_Value => 100, Expected_Size => 1);
+  Push (Expected_Value => 200, Expected_Size => 2);
+  Push (Expected_Value => 300, Expected_Size => 3);
+  Push (Expected_Value => 400, Expected_Size => 4);
+  Push (Expected_Value => 500, Expected_Size => 5);
 
-  Int_Stack.clear (Stack);
+  Int_Stack.Clear (Stack);
 
   Test.Assert
     (Check        => Int_Stack.Size (Stack) = 0,
